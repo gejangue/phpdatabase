@@ -14,8 +14,8 @@
        $dbuser = getenv("databaseuser");
        $dbpwd = getenv("databasepassword");
        $dbname = getenv("databasename");
-       //$connection = new mysqli($dbhost, $dbuser, $dbpwd, $dbname);
-        $pdo = new PDO("mysql:host=$dbhost;dbname=$dbname", $dbuser, $$dbpwd);
+       $connection = new mysqli($dbhost, $dbuser, $dbpwd, $dbname);
+       // $pdo = new PDO("mysql:host=$dbhost;dbname=$dbname", $dbuser, $$dbpwd);
 
         if(count($_POST) > 0):
             if( !strlen($_POST['titel']) > 0
@@ -30,14 +30,14 @@
                     ."(titel, autor, seiten, isbn) VALUES "
                     ."(:titel, :autor, :seiten, :isbn)";
                 
-                $query = $pdo->prepare($sql);
+                $query = $connection->prepare($sql);
                 $query->bindParam(':titel', $_POST['titel'], PDO::PARAM_STR);
                 $query->bindParam(':autor', $_POST['autor'], PDO::PARAM_STR);
                 $query->bindParam(':seiten', $_POST['seiten'], PDO::PARAM_INT);
                 $query->bindParam(':isbn', $_POST['isbn'], PDO::PARAM_STR);
                 $query->execute();
                 
-                if($pdo->lastInsertId()){
+                if($connection->lastInsertId()){
                     echo "Gespeichert!";
                 }
             }
