@@ -5,15 +5,15 @@ $dbuser = getenv("databaseuser");
 $dbpwd = getenv("databasepassword");
 $dbname = getenv("databasename");
 
-//$connection = new mysqli($dbhost, $dbuser, $dbpwd, $dbname);
+$connection = new mysqli($dbhost, $dbuser, $dbpwd, $dbname);
 // if ($connection->connect_errno) {
     // printf("Connect failed: %s\n", $mysqli->connect_error);
     // exit();
 // } else {
     // printf("Connected to the database");
 // }
- $pdo = new PDO("mysql:host=$dbhost;dbname=$dbname", $dbuser, $$dbpwd);
-$query = $pdo->prepare("SELECT * FROM buecher");
+ //$pdo = new PDO("mysql:host=$dbhost;dbname=$dbname", $dbuser, $$dbpwd);
+$query = $connection->prepare("SELECT * FROM buecher");
 var_dump($query);
 $query->execute();
 echo "<ol>";
